@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Menu + Game Dialog</title>
+    <style>
+        /* Body and global settings */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #5998f5; /* Set background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Start menu styles */
+        #startMenu {
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+            border: 3px solid #fff;
+            border-radius: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Slight transparency */
+            position: relative;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 20px 0;
+        }
+
+        ul li a {
+            text-decoration: none;
+            font-size: 24px;
+            color: #fff;
+            background-color: #444;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        ul li a:hover {
+            background-color: #777;
+            transform: scale(1.1);
+        }
+
+        /* Character Dialog Section */
+        #gameContainer {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            display: none; /* Hidden initially */
+            text-align: center;
+            color: white;
+        }
+
+        #dialogBox {
+            position: absolute;
+            bottom: 10%;
+            left: 10%;
+            right: 10%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        #character {
+            position: absolute;
+            left: 10%;
+            bottom: 15%;
+            width: 200px;
+        }
+
+        #bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #continueBtn {
+            margin-top: 10px;
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #continueBtn:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Start Menu -->
+    <div id="startMenu">
+        <h1>My Game</h1>
+        <ul>
+            <li><a href="#" id="startGameBtn">Start Game</a></li>
+            <li><a href="#" id="options">Options</a></li>
+            <li><a href="#" id="credits">Credits</a></li>
+        </ul>
+        <!-- Character Image next to Start button -->
+        <img src="lixi.png" alt="Character" id="characterImage">
+    </div>
+
+    <!-- Game Dialog Section -->
+    <div id="gameContainer">
+        <!-- Background image of character's room -->
+        <img src="the roo,.jpg" id="bg" alt="Background">
+
+        <!-- Character image -->
+        <img src="lixi.png" id="character" alt="Character">
+
+        <!-- Dialog box -->
+        <div id="dialogBox">
+            <p id="dialogText">Welcome to my game, bestie!</p>
+            <button id="continueBtn">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        // Start Menu functionality
+        const startGameBtn = document.getElementById('startGameBtn');
+        const startMenu = document.getElementById('startMenu');
+        const gameContainer = document.getElementById('gameContainer');
+
+        // When the player clicks "Start Game", hide the start menu and show the dialog scene
+        startGameBtn.addEventListener('click', function() {
+            startMenu.style.display = 'none';
+            gameContainer.style.display = 'block';
+        });
+
+        // Dialog sequence
+        const dialogSequence = [
+            "Welcome to my game, bestie!",
+            "I want you to help me prepare for a date.",
+            "Are you in a relationship?",
+            "Yes, can you help me?",
+            "Sure.",
+            "Thank you, I really appreciate it.",
+            "Is this your first date?",
+            "Yes, it’s the first time I’ll meet him. I met him online.",
+            "But… isn’t that dangerous?",
+            "Believe me, he’s a good person.",
+            "I hope so.",
+            "Let’s start dressing up."
+        ];
+
+        let currentDialogIndex = 0;
+
+        // Elements for the dialog system
+        const dialogText = document.getElementById('dialogText');
+        const continueBtn = document.getElementById('continueBtn');
+
+        // Event listener for the continue button in the dialog
+        continueBtn.addEventListener('click', function() {
+            currentDialogIndex++;
+            if (currentDialogIndex < dialogSequence.length) {
+                dialogText.textContent = dialogSequence[currentDialogIndex];
+            } else {
+                dialogText.textContent = "End of conversation!";
+                continueBtn.style.display = 'none'; // Hide the button when conversation ends
+            }
+        });
+
+        // Optional functionality for Options and Credits buttons
+        document.getElementById('options').addEventListener('click', function() {
+            alert('Open Options...');
+        });
+
+        document.getElementById('credits').addEventListener('click', function() {
+            alert('Game developed by...');
+        });
+    </script>
+
+</body>
+</html>
